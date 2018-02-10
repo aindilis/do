@@ -1,0 +1,72 @@
+C-n		$self->MyGUI->ActionNextRelationship();
+C-p		$self->MyGUI->ActionPreviousRelationship();
+C-s		$self->MyGUI->ActionSearchRelationships();
+
+C-a n n		$self->MyGUI->App->Assert(New => 1);
+
+C-a g o		$self->MyGUI->App->Assert(Templates => [['goal',$self->MyGUI->App->CurrentChildEntryFn]]);
+
+C-a v t		$self->MyGUI->App->Assert(Templates => [['verber-task-definition',$self->MyGUI->App->CurrentChildEntryFn]]);
+C-a i c		$self->MyGUI->App->Assert(Templates => [['icodebase-capability-request',$self->MyGUI->App->CurrentChildEntryFn]]);
+C-a c s		$self->MyGUI->App->Assert(Templates => [['codebase-solution-to-extant-problem',$self->MyGUI->App->CurrentChildEntryFn]]);
+C-a s e		$self->MyGUI->App->Assert(Templates => [['solution-to-extant-problem',$self->MyGUI->App->CurrentChildEntryFn]]);
+C-a S o		$self->MyGUI->App->Assert(Templates => [['SOP',$self->MyGUI->App->CurrentChildEntryFn]]);
+C-a s r		$self->MyGUI->App->Assert(Templates => [['system-request',$self->MyGUI->App->CurrentChildEntryFn]]);
+C-a p s		$self->MyGUI->App->Assert(Templates => [['priority-shift',$self->MyGUI->App->CurrentChildEntryFn]]);
+C-a i t		$self->MyGUI->App->Assert(Templates => [['icodebase-task',$self->MyGUI->App->CurrentChildEntryFn]]);
+C-a c r		$self->MyGUI->App->Assert(Templates => [['capability-request',$self->MyGUI->App->CurrentChildEntryFn]]);
+C-a s l		$self->MyGUI->App->Assert(Templates => [['shopping-list-item',$self->MyGUI->App->CurrentChildEntryFn]]);
+
+C-A n n		$self->MyGUI->App->UnAssert(New => 1);
+
+C-A g o		$self->MyGUI->App->UnAssert(Templates => [['goal',$self->MyGUI->App->CurrentChildEntryFn]]);
+
+C-A v t		$self->MyGUI->App->UnAssert(Templates => [['verber-task-definition',$self->MyGUI->App->CurrentChildEntryFn]]);
+C-A i c		$self->MyGUI->App->UnAssert(Templates => [['icodebase-capability-request',$self->MyGUI->App->CurrentChildEntryFn]]);
+C-A c s		$self->MyGUI->App->UnAssert(Templates => [['codebase-solution-to-extant-problem',$self->MyGUI->App->CurrentChildEntryFn]]);
+C-A s e		$self->MyGUI->App->UnAssert(Templates => [['solution-to-extant-problem',$self->MyGUI->App->CurrentChildEntryFn]]);
+C-A S o		$self->MyGUI->App->UnAssert(Templates => [['SOP',$self->MyGUI->App->CurrentChildEntryFn]]);
+C-A s r		$self->MyGUI->App->UnAssert(Templates => [['system-request',$self->MyGUI->App->CurrentChildEntryFn]]);
+C-A p s		$self->MyGUI->App->UnAssert(Templates => [['priority-shift',$self->MyGUI->App->CurrentChildEntryFn]]);
+C-A i t		$self->MyGUI->App->UnAssert(Templates => [['icodebase-task',$self->MyGUI->App->CurrentChildEntryFn]]);
+C-A c r		$self->MyGUI->App->UnAssert(Templates => [['capability-request',$self->MyGUI->App->CurrentChildEntryFn]]);
+C-A s l		$self->MyGUI->App->UnAssert(Templates => [['shopping-list-item',$self->MyGUI->App->CurrentChildEntryFn]]);
+
+C-c g o		$self->MyGUI->App->Assert(Templates => [['#$goals',$self->MyGUI->App->CycCurrentUserFn,$self->MyGUI->App->CycCurrentChildEntryFn]]);
+
+C-c s b d	$self->MyGUI->App->Assert(Templates => [['depends',$self->MyGUI->App->CurrentParentEntryFn,$self->MyGUI->App->CurrentChildEntryFn]]);
+C-c s b D	$self->MyGUI->App->Assert(Templates => [['depends',$self->MyGUI->App->CurrentChildEntryFn,$self->MyGUI->App->CurrentParentEntryFn]]);
+C-c s B d	$self->MyGUI->App->UnAssert(Templates => [['depends',$self->MyGUI->App->CurrentParentEntryFn,$self->MyGUI->App->CurrentChildEntryFn]]);
+C-c s B D	$self->MyGUI->App->UnAssert(Templates => [['depends',$self->MyGUI->App->CurrentChildEntryFn,$self->MyGUI->App->CurrentParentEntryFn]]);
+C-c s b p	$self->MyGUI->App->Assert(Templates => [['provides',$self->MyGUI->App->CurrentParentEntryFn,$self->MyGUI->App->CurrentChildEntryFn]]);
+C-c s b P	$self->MyGUI->App->Assert(Templates => [['provides',$self->MyGUI->App->CurrentChildEntryFn,$self->MyGUI->App->CurrentParentEntryFn]]);
+C-c s B p	$self->MyGUI->App->UnAssert(Templates => [['provides',$self->MyGUI->App->CurrentParentEntryFn,$self->MyGUI->App->CurrentChildEntryFn]]);
+C-c s B P	$self->MyGUI->App->UnAssert(Templates => [['provides',$self->MyGUI->App->CurrentChildEntryFn,$self->MyGUI->App->CurrentParentEntryFn]]);
+C-c s b e	$self->MyGUI->App->Assert(Templates => [['eases',$self->MyGUI->App->CurrentParentEntryFn,$self->MyGUI->App->CurrentChildEntryFn]]);
+C-c s b E	$self->MyGUI->App->Assert(Templates => [['eases',$self->MyGUI->App->CurrentChildEntryFn,$self->MyGUI->App->CurrentParentEntryFn]]);
+C-c s B e	$self->MyGUI->App->UnAssert(Templates => [['eases',$self->MyGUI->App->CurrentParentEntryFn,$self->MyGUI->App->CurrentChildEntryFn]]);
+C-c s B E	$self->MyGUI->App->UnAssert(Templates => [['eases',$self->MyGUI->App->CurrentChildEntryFn,$self->MyGUI->App->CurrentParentEntryFn]]);
+C-c s b f	$self->MyGUI->App->Assert(Templates => [['prefer',$self->MyGUI->App->CurrentParentEntryFn,$self->MyGUI->App->CurrentChildEntryFn]]);
+C-c s b F	$self->MyGUI->App->Assert(Templates => [['prefer',$self->MyGUI->App->CurrentChildEntryFn,$self->MyGUI->App->CurrentParentEntryFn]]);
+C-c s B f	$self->MyGUI->App->UnAssert(Templates => [['prefer',$self->MyGUI->App->CurrentParentEntryFn,$self->MyGUI->App->CurrentChildEntryFn]]);
+C-c s B F	$self->MyGUI->App->UnAssert(Templates => [['prefer',$self->MyGUI->App->CurrentChildEntryFn,$self->MyGUI->App->CurrentParentEntryFn]]);
+
+C-c s u c	$self->MyGUI->App->Assert(Templates => [['completed',$self->MyGUI->App->CurrentChildEntryFn]]);
+C-c s U c	$self->MyGUI->App->UnAssert(Templates => [['completed',$self->MyGUI->App->CurrentChildEntryFn]]);
+C-c s u s	$self->MyGUI->App->Assert(Templates => [['showstopper',$self->MyGUI->App->CurrentChildEntryFn]]);
+C-c s U s	$self->MyGUI->App->UnAssert(Templates => [['showstopper',$self->MyGUI->App->CurrentChildEntryFn]]);
+C-c s u d	$self->MyGUI->App->Assert(Templates => [['deleted',$self->MyGUI->App->CurrentChildEntryFn]]);
+C-c s U d	$self->MyGUI->App->UnAssert(Templates => [['deleted',$self->MyGUI->App->CurrentChildEntryFn]]);
+C-c s u l	$self->MyGUI->App->Assert(Templates => [['cancelled',$self->MyGUI->App->CurrentChildEntryFn]]);
+C-c s U l	$self->MyGUI->App->UnAssert(Templates => [['cancelled',$self->MyGUI->App->CurrentChildEntryFn]]);
+C-c s u i	$self->MyGUI->App->Assert(Templates => [['ridiculous',$self->MyGUI->App->CurrentChildEntryFn]]);
+C-c s U i	$self->MyGUI->App->UnAssert(Templates => [['ridiculous',$self->MyGUI->App->CurrentChildEntryFn]]);
+C-c s u o	$self->MyGUI->App->Assert(Templates => [['obsoleted',$self->MyGUI->App->CurrentChildEntryFn]]);
+C-c s U o	$self->MyGUI->App->UnAssert(Templates => [['obsoleted',$self->MyGUI->App->CurrentChildEntryFn]]);
+C-c s u r	$self->MyGUI->App->Assert(Templates => [['rejected',$self->MyGUI->App->CurrentChildEntryFn]]);
+C-c s U r	$self->MyGUI->App->UnAssert(Templates => [['rejected',$self->MyGUI->App->CurrentChildEntryFn]]);
+C-c s u p	$self->MyGUI->App->Assert(Templates => [['skipped',$self->MyGUI->App->CurrentChildEntryFn]]);
+C-c s U p	$self->MyGUI->App->UnAssert(Templates => [['skipped',$self->MyGUI->App->CurrentChildEntryFn]]);
+
+C-c s u S	$self->MyGUI->App->Assert(Templates => [['shoppinglist',$self->MyGUI->App->CurrentChildEntryFn]]);
+C-c s U S	$self->MyGUI->App->UnAssert(Templates => [['shoppinglist',$self->MyGUI->App->CurrentChildEntryFn]]);

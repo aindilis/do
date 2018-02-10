@@ -1,0 +1,3 @@
+#!/bin/sh
+
+cd /var/lib/myfrdcsa/codebases/internal/do/scripts/convert/data && ./do-convert.qsave

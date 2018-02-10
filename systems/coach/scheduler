@@ -1,0 +1,125 @@
+#!/usr/bin/perl -w
+
+use Manager::Dialog qw(SubsetSelect);
+use Manager::Misc::Light;
+use PerlLib::UI;
+
+use Data::Dumper;
+
+my $light = Manager::Misc::Light->new();
+# my $f = "/var/lib/myfrdcsa/codebases/internal/manager/normal-form/svrs-checklist.el";
+# my $f = "constraints";
+my $f = $ARGV[0];
+
+my $c = `cat "$f"`;
+# print $c."\n";
+my $domain = $light->Parse
+  (Contents => $c);
+# print Dumper($domain);
+my $nd = AdaptDomain($domain);
+print Dumper($nd);
+
+$waitingon = {};
+$events = {};
+$ievents = {};
+$eventcount = 0;
+
+sub AdaptDomain {
+  my $domain = shift;
+  my @l;
+  my @quote;
+  foreach my $e (@$domain) {
+    if (ref $e eq "ARRAY") {
+      push @l, AdaptDomain($e);
+    } elsif (ref $e eq "") {
+      if ($e =~ /^\"/) {
+	# start a new array until a trailing \" is found
+	$e =~ s/^\"//;
+	push @quote, $e;
+      } else {
+	if (@quote) {
+	  if ($e =~ /\"$/) {
+	    $e =~ s/\"$//;
+	    push @quote, $e;
+	    my @nl = @quote;
+	    @quote = ();
+	    push @l, join(" ",@nl);
+	  } else {
+	    push @quote, $e;
+	  }
+	} else {
+	  push @l, $e;
+	}
+      }
+    }
+  }
+  return \@l;
+}
+
+$todolist = {};
+
+sub ComputeTodoList {
+  my $domain = shift;
+  foreach my $assertion (@$domain) {
+    ProcessAssertion($assertion);
+  }
+  # print Dumper($waitingon);
+  # now compute next steps
+  my $mark = {};
+  foreach my $value (values %$events) {
+    if (exists $waitingon->{$value}) {
+      $mark->{$value} = 1;
+    } else {
+      $todolist->{$value} = 1;
+    }
+  }
+}
+
+sub ShowCurrentTasks {
+  my $domain = shift;
+  ComputeTodoList($domain);
+  foreach my $key (keys %$todolist) {
+    print $ievents->{$key}."\n";
+  }
+}
+
+sub ProcessAssertion {
+  my $assertion = shift;
+  my $head = shift @$assertion;
+  if ($head eq "waiting-on") {
+    my $e1 = ProcessEvent(shift @$assertion);
+    my $e2 = ProcessEvent(shift @$assertion);
+    $waitingon->{$e1}->{$e2} = 1;
+  }
+}
+
+sub ProcessEvent {
+ my $item = shift;
+  if (ref $item eq "") {
+    if (exists $events->{$item}) {
+      return $events->{$item};
+    } else {
+      $events->{$item} = $eventcount++;
+      $ievents->{$events->{$item}} = $item;
+      return $events->{$item};
+    }
+  } else {
+    return 1000;
+  }
+}
+
+sub ExpandOnGivenTasks {
+  my @tasks = SubsetSelect
+    ();
+}
+
+sub SelectCurrentTasks {
+  my $domain = shift;
+  ComputeTodoList($domain);
+  my @tasks = SubsetSelect
+    (Set => [map {$ievents->{$_}} keys %$todolist]);
+  print Dumper(\@tasks);
+}
+
+ShowCurrentTasks($nd);
+

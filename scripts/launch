@@ -1,0 +1,7 @@
+#!/bin/bash
+
+# ./launch-semanta.sh
+
+./loading-system.pl -s -m --files /var/lib/myfrdcsa/codebases/internal/do/scripts/to-do/actual-real-short.do
+
+# ./loading-system.pl -m --files /home/andrewdo/.config/frdcsa/todo/20150822.do -c 20150822

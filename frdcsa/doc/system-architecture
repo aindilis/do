@@ -1,0 +1,59 @@
+Here are all the components of this planning system.
+
+The  action  approval  system  (it  schedules actions  that  the  user
+requests, such as immediate or longer term).
+
+The  probabilistic plan  system.  Models  plans  probabalistically, so
+that we can compute expectation and variance of various properties.
+
+The  scheduling system.  A  system for  taking goals  and representing
+them in a way that makes  sense, and then showing the user what things
+are planned  for when.  Makes schedules, handles  requests for changes
+of schedule,  etc, brokers changes through the  common sense reasoning
+system.
+
+The planning  system.  Takes a set  of axiomatic goals  and produces a
+plan to achieve those goals.
+
+The  plan  formalization and  reification  system.   Takes the  goals,
+especially those goals that have been classified as
+
+The user  scoring system.  Responsible for  representing and computing
+user scores on the basis of ELog data.
+
+The  user  context monitoring  system.   Records  to  ELog the  user's
+computing actitivities,  and computing task  activity scores.  Results
+fed into  the plan execution system  to ensure that we  are staying on
+task. - It will indeed be easier to stay focused, now that there is code to
+prove that we are stayin on task.  This system, when expanded some,
+should assist the user in determining how they are faring for the day.
+
+The  common  sense  reasoning   system.   This  system  determine  via
+inference which  states are preferable to others,  among other things.
+It reasons the severity of punishment for certain actions.
+
+The  action  completion  value  system.   Determines  how  much  value
+completing a given task is.
+
+The user communication system.  Is responsible for getting hold of the
+user to communicate with them.
+
+Isolation system.  Ensures the user is being isolated.  Computes their
+isolation score based on ELog data.
+
+Solution  to   implementation  space  mapping   system.   Record  what
+files/functions/etc implement a given solution.
+
+Capability management system. Record capabilities assigned to a given
+system or its subsystems.
+
+Subsystem editor system.  Edit and arrange subsystems.  Refactor
+subsystems.  Also, record somewhere potential solutions to problems.
+Model unsolved problems (i.e. capability requests that don't have an
+associated implementation) as receptor nodes.
+
+Goal system.  Maintain general database of goals.
+
+Stochastic  Ranker  System.   Responsible  for finding  most  probable
+parses  of  a  ?constraint  grammar?   In  other  words  reasons  with
+probabilistic inference.

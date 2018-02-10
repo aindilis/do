@@ -1,0 +1,31 @@
+Here is my plan for the remainder of today.  Quit doing this stupid
+manager  stuff.  I mean,  we need  to get  it down  so that  tasks are
+getting knocked off somehow, and that that is being recorded by score
+or something.
+
+It is  irrelevant that there are better  ways to do this.   We need to
+get this done so that we can find those better ways.
+
+That is  the key.  Right now we  have nothing to visualize  and so are
+wasting our time getting ahead of ourselves.  I hate visualization.
+
+Some files should  be kind of denied access by  the system (to prevent
+the user from working on  things we've decided against.  For instance,
+I  shouldn't be  doing any  plotting.   Eventually we  would like  the
+system to  know that closely what we  are working on.  We  can do that
+with intelligent IDE/language tools)
+
+Here is a general chart of what needs to be done.
+
+Take Spark, and create the basis of the action approval system.
+
+Write code for integrating tasks in two ways -
+
+	1 -	expanding on tasks of interest by either searching the DB
+		or eliciting the user to assert new tasks
+
+	2 -	ensuring that all tasks that have been issued before eventually get integrated
+
+By the  end of the  day, we would  like a basic schedule  of important
+tasks, and have that integrated with the task probability distribution
+by mapping tasks 

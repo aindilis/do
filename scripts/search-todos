@@ -1,0 +1,48 @@
+#!/usr/bin/perl -w
+
+use BOSS::Config;
+use PerlLib::SwissArmyKnife;
+
+$specification = q(
+	-n		Search notes instead
+	<search>...	Searches to be acted upon
+);
+
+my $config =
+  BOSS::Config->new
+  (Spec => $specification);
+my $conf = $config->CLIConfig;
+# $UNIVERSAL::systemdir = "/var/lib/myfrdcsa/codebases/minor/system";
+
+my $commands = {
+		'NOTES FILES' => 'locate -r "\.notes$"',
+		'TODO FILES' => 'locate -r "/to\.do$"',
+	       };
+foreach my $search (@{$conf->{'<search>'}}) {
+
+  print "<S:$search>\n";
+
+  my $qsearch = shell_quote($search);
+  foreach my $key (sort {$a cmp $b} keys %$commands) {
+    print " <$key>\n";
+    my $command = $commands->{$key};
+    foreach my $file (split /\n/, `$command`) {
+      print "  <F:$file>\n";
+      my $qfile = shell_quote($file);
+      my $res = `grep -E $qsearch $qfile`;
+      if ($res =~ /./) {
+	print $res;
+      }
+    }
+  }
+
+  print " <CORPUS (UNILANG)>\n";
+  my $corpusresults = `corpus -s $qsearch`;
+  print $corpusresults."\n";
+
+  print " <SPSE2>\n";
+  my $password = read_file("/etc/myfrdcsa/config/perllib");
+  my $spse2results = `mysqldump -uroot -p'$password' freekbs2 | grep -E $qsearch`;
+  my @res = split /\),\(/, $spse2results;
+  print join("\n  ", grep(/$search/,@res))."\n";
+}

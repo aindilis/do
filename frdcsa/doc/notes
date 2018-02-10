@@ -1,0 +1,27 @@
+Here is what I would do.
+
+I would make the PlanFormalizationAndReification subsystem trivial, in
+that  it  just   maps  goals  to  states  with   obscure  CycIDs  like
+"ES-State-1002314", but it asserts complex relationships between them,
+that are derived  from Cyc.  There are temporal  semantics that can be
+associated  with states,  and  these  are the  first  arena of  actual
+extraction.  Gate may be  used for temporal expression identification?
+
+Next I would have an event system monitor, which consists of triggers,
+i.e. assertions that  are made if certain events  occur (and I suppose
+can be repealed).
+
+For the  plan system, it tries  to develop plans  that satisfy certain
+states, which  for now simply  have a preference relation.   There are
+also equivalence classes which dictate replanning behaviour.
+
+States  simply consist  of queries,  which can  be true  or  false (or
+unknown)
+
+It  may  be   difficult  to  generate  a  temporal   plan  from  these
+constraints.
+
+The next part is the  plan executor.  It feeds accomplishments through
+the event system.  If after an action a task is completed or a certain
+desireable state is obtained, a positive score is added to the system.
+

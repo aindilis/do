@@ -1,0 +1,41 @@
+;;;;; OLD way that uses emacs read syntax, doesn't always work, so rewrote in perl using Light
+
+(defun do-todo-file-select-subsection-elisp ()
+ "This is a completing read menu system for the todo files, allowing rapid classification of tasks"
+ (interactive)
+ (save-excursion
+  (mark-whole-buffer)
+  (let* (
+	 (buffer-contents (buffer-substring-no-properties (point) (mark)))
+	 (buffer-list (read (concat "(" buffer-contents ")")))
+	 )
+   ;; foreach list item, print it
+   (completing-read "Please select a when category "
+    (mapcar 'do-todo-file-return-leading-section buffer-list))
+   )))
+
+(defun do-todo-file-add-to-elisp ()
+ "This is a completing read menu system for the todo files, allowing rapid classification of tasks"
+ (interactive)
+ (save-excursion
+  (mark-whole-buffer)
+  (let* (
+	 (buffer-contents (buffer-substring-no-properties (point) (mark)))
+	 (buffer-list (read (concat "(" buffer-contents ")")))
+	 )
+   ;; foreach list item, print it
+   (see (org-frdcsa-manager-dialog--choose-by-processor buffer-list 'do-todo-file-return-leading-section))
+   )))
+
+(defun do-todo-file-return-leading-section-elisp (list)
+ "Take a sexp and concat into a string and return everything together that is before a sub-sexp"
+ (if (not (listp (car list)))
+  (let* ((my-car (prin1-to-string (car list)))
+	 (my-cdr (do-todo-file-return-leading-section (cdr list))))
+   (if (not (string= my-cdr ""))
+    (join " " (list my-car my-cdr))
+    my-car))
+  ""))
+
+;;;;; New Perl based way
+

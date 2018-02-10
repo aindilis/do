@@ -1,0 +1,88 @@
+sub Menu {
+  my ($self,%args) = @_;
+  my $conf = $self->Config->CLIConfig;
+  $myui =
+    PerlLib::UI->new
+     (Menu => [
+	       "Main Menu", [
+			     "Save Movies",sub {
+			       $self->SaveMovies;
+			     },
+			     "Remove Movie", sub {$self->RemoveMovie},
+			     "New Movie", sub {$self->NewMovie},
+			     "List Movies", sub {$self->ListMovies},
+			     "Select Movie", sub {$self->SelectMovie},
+			     "Edit Movie",
+			     sub {
+			       if (! $self->MyMovie) {
+				 $self->SelectMovie;
+			       }
+			       $self->MyUI->Goto(Menu => "Edit Movie");
+			     },
+			     "Play Movie",
+			     sub {
+			       if (! $self->MyMovie) {
+				 $self->SelectMovie;
+			       }
+			       $self->MyMovie->Play;
+			     },
+			    ],
+	       "Edit Movie", [
+			      "Save Movies",sub {
+				$self->SaveMovies;
+			      },
+			      "Preview",
+			      sub {
+				$self->MyMovie->Play;
+			      },
+			      "List Scenes", sub {$self->MyMovie->ListScenes},
+			      "Add Scene", sub {$self->MyMovie->AddScene},
+			      "Edit Scene",
+			      sub {
+				if (! $self->MyScene) {
+				  $self->MyScene($self->MyMovie->SelectScene);
+				}
+				if ($self->MyScene) {
+				  $self->MyUI->Goto(Menu => "Edit Scene");
+				}
+			      },
+			      "Edit Scene Constraints",sub {$self->MyScene->EditSceneConstraints},
+			      "Select Scenes", sub {$self->MyMovie->SelectScenes},
+			     ],
+	       "Edit Scene", [
+			      "Save Movies",sub {
+				$self->SaveMovies;
+			      },
+			      "Preview",
+			      sub {
+				$self->MyScene->Play;
+			      },
+
+			      "List Elements", sub {$self->MyScene->ListElements},
+			      "Add Element",sub {$self->MyScene->AddElement},
+			      "Edit Element",
+			      sub {
+				if (! $self->MyElement) {
+				  $self->MyElement($self->MyScene->SelectElement);
+				}
+				if ($self->MyElement) {
+				  $self->MyUI->Goto(Menu => "Edit Element");
+				}
+			      },
+			      "Edit Element Constraints",sub {$self->MyScene->EditElementConstraints},
+			      "Select Elements", sub {$self->MyMovie->SelectElements},
+			     ],
+	       "Edit Element", [
+				"Save Movies",sub {
+				  $self->SaveMovies;
+				},
+				"Preview",
+				sub {
+				  $self->MyElement->Play;
+				},
+			       ],
+	      ],
+      CurrentMenu => "Main Menu");
+  Message(Message => "Starting Event Loop...");
+  $myui->BeginEventLoop;
+}
